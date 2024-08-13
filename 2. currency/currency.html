@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: blueviolet;
+        }
+
+        .container {
+            margin: 0;
+            width: 400px;
+            height: auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .money-value {
+            width: 100%;
+            font-size: 1.2rem;
+            padding: 5px;
+            margin: 10px 0 20px 0 ;
+        }
+
+        .swap {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .currencies {
+            padding: 8px;
+            font-size: 1rem;
+            margin: 10px 0 ;
+        }
+
+        .swap-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .swap-currency {
+            font-size: 2rem;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .result {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .exchange {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0 0 0;
+            background-color: blueviolet;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        select {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="currency">
+            <h3 class="title">Currency Converter</h3>
+            <div class="inner-container">
+                <p>Enter Amount</p>
+                <input type="text" class="money-value" value="0">
+                <div class="swap">
+                    <div class="current">
+                        <label for="currency1">From</label><br>
+                        <select name="currency1" class="currency1 currencies"></select>
+                    </div>
+                    <div class="swap-icon">
+                        <button class="swap-currency"><i class='bx bx-transfer-alt'></i></button>
+                    </div>
+                    <div class="current">
+                        <label for="currency2">To</label><br>
+                        <select name="currency2" class="currency2 currencies"></select>
+                    </div>
+                </div>
+                <p class="result"></p>
+                <button class="exchange">Get Exchange Rate</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const selects = document.querySelectorAll('.swap select');
+        const moneyValue = document.querySelector('.money-value');
+
+        const selected = document.querySelector('.currency1');
+        const exchangeMoney = document.querySelector('.currency2');
+
+        const exchange = document.querySelector('.exchange');
+        const swap = document.querySelector('.swap-currency');
+
+        let result = document.querySelector('.result')
+
+        function init() {
+            converter();
+        }
+        init();
+
+        async function converter() {
+            try {
+                const response = await fetch(`https://open.er-api.com/v6/latest/USD`);
+                const data = await response.json(); 
+                const rates = data.rates;
+                console.log(data);
+
+                populationSelect(rates);
+
+                exchange.addEventListener('click', function() {
+                    exchanger(rates)
+                });
+
+                swap.addEventListener('click', function() {
+                    swaper();
+                }) 
+
+            } catch (err) { 
+                console.error(err);
+            }
+        }
+    
+        function populationSelect(rate) {
+            let val = '';
+            Object.keys(rate).forEach(code => {
+                let str = `<option value="${code}">${code}</option>`;
+                val += str;
+            });
+            selects.forEach(value => value.innerHTML = val);
+        }
+
+        function exchanger(rate) {
+            const fromVal = moneyValue.value;
+
+            if (isNaN(fromVal) || fromVal < 0) return result.innerHTML = 'Please Put Valid Number';
+
+            const fromRate = rate[selected.value]
+            const toRate = rate[exchangeMoney.value];
+            
+            result.innerHTML = `${fromVal} ${selected.value} = ${((toRate / fromRate) * fromVal).toFixed(2)} ${exchangeMoney.value}`;
+        }
+
+        function swaper() {
+            [selected.value, exchangeMoney.value] = [exchangeMoney.value, selected.value]
+        }
+    </script>
+</body>
+</html>
