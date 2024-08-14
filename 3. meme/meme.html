@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {  
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .container {
+            background-color: brown;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 900px;
+            height: 700px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .joke-container {
+            padding: 10px 20px;
+        }
+
+        .title {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .joke {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .btn {
+            margin-top: 30px;
+            padding: 10px 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .name {
+            color: white;
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+        .img {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Meme Generator</h1>
+        <div class="joke-container">
+            <img src="https://i.imgflip.com/1bij.jpg" class="img" alt="">
+            <p class="name">"One Does Not Simply"</p>
+            <button class="btn">GENERATE A MEME</button>
+        </div>
+    </div>
+
+    <script>
+        const btn = document.querySelector('.btn');
+        const img = document.querySelector('.img');
+        const name = document.querySelector('.name');
+
+        const urlLink = 'https://api.imgflip.com/get_memes';
+
+        async function generator() {
+            try {
+                const response = await fetch(urlLink);
+                const data = await response.json();
+                const memes = data.data.memes
+                console.log(memes)
+
+                const random = Math.floor(Math.random() * memes.length);
+
+                img.src = memes[random].url;
+                name.innerHTML = memes[random].name;
+            } catch (err) {
+                name.innerHTML = err;
+            }
+        }
+        
+        btn.addEventListener('click', generator);
+    </script>
+</body>
+</html>
