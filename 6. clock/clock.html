@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.hdqwalls.com/download/time-clock-digital-creative-illustration-2d-2560x1440.jpg') center/cover no-repeat;
+        }
+
+        .container {
+            width: 800px;
+            height: 300px;
+            text-align: center;
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(7px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .time {
+            font-size: 7rem;
+        }
+
+        .date {
+            font-size: 1.5rem;
+            font-weight: lighter;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="time">21:21:21</h1>
+        <p class="date">Tuesday, July 31, 2024</p>
+    </div>
+
+    <script>
+        const time = document.querySelector('.time');
+        const day = document.querySelector('.date');
+
+        setInterval(clock, 1000)
+
+        function clock() {
+            const d = new Date();
+            const hr = String(d.getHours()).padStart(2, '0');
+            const min = String(d.getMinutes()).padStart(2, '0')
+            const sec = String(d.getSeconds()).padStart(2, '0')
+            
+            time.innerHTML = `${hr}:${min}:${sec}`;
+            day.innerHTML = new Date();
+        }
+    </script>
+</body>
+</html>
