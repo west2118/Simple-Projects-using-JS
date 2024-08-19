@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Scrolling Cards</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.hdqwalls.com/download/time-clock-digital-creative-illustration-2d-2560x1440.jpg') center/cover no-repeat;
+        }
+
+        .container {
+            width: 800px;
+            height: 300px;
+            text-align: center;
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(7px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 50px;
+        }
+
+        .design2 {
+            font-size: 3.5rem;
+        }
+
+        .title {
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+      <h1 class="title">COUNTDOWN TIMER</h1>
+        <div class="countdown">
+            <div class="design">
+                <h3>DAYS</h3>
+                <div class="design2">
+                    <h1 class="day-timer">00</h1>
+                </div>
+            </div>
+
+            <div class="design">
+                <h3>HOURS</h3>
+                <div class="design2">
+                    <h1 class="hour-timer">00</h1>
+                </div>
+            </div>
+
+            <div class="design">
+                <h3>MINUTES</h3>
+                <div class="design2">
+                    <h1 class="minute-timer">00</h1>
+                </div>
+            </div>
+
+            <div class="design">
+                <h3>SECONDS</h3>
+                <div class="design2">
+                    <h1 class="second-timer">00</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let days = 10;
+
+    function timer() {
+        let numDay = document.querySelector('.day-timer')
+        let numHour = document.querySelector('.hour-timer')
+        let numMinute = document.querySelector('.minute-timer')
+        let numSecond = document.querySelector('.second-timer')
+
+        let interval = setInterval(function (){
+            numDay.innerHTML = String(Math.floor(days / (24 * 60 * 60))).padStart(2, 0);
+            numHour.innerHTML = String(Math.floor((days % (24 * 60 * 60)) / (60 * 60))).padStart(2, 0);
+            numMinute.innerHTML = String(Math.floor((days % (24 * 60 * 60)) / 60)).padStart(2, 0);
+            numSecond.innerHTML = String(Math.floor(days % 60)).padStart(2, 0);
+
+            days <= 0 ? clearInterval(interval) : days--;
+        }, 1000)
+    }
+    timer();
+</script>
+</html>
