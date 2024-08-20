@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .tip-container {
+            background-color: rgb(25, 57, 199);
+            color: white;
+            padding: 25px 50px;
+            border-radius: 10px;
+        }
+
+        .form-height, .form-weight {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-height label, .form-weight label {
+            font-size: 1.5rem;
+            margin-right: 20px;
+        }
+
+        .form-height input, .form-weight input {
+            width: 250px;
+            padding: 5px;
+        }
+        
+        .calculate {
+            padding: 10px 20px;
+            width: 100%;
+            margin: 10px 0;
+            font-size: 1rem;
+            background-color: green;
+            color: white;
+            border: none;
+            font-weight: bold;
+        }
+
+        .results {
+            font-size: 1.3rem;
+            margin: 10px 0;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        input {
+            font-size: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>BMI CALCULATION</h1>
+        <div class="tip-container">
+            <div class="form">
+                <div class="form-weight">
+                    <label for="weight">Weight(kg): </label>
+                    <input type="text" class="weight" placeholder="59">
+                </div>
+                <div class="form-height">
+                    <label for="height">Height(m): </label>
+                    <input type="text" class="height" placeholder="1.60">
+                </div>
+            </div>
+            <button class="calculate">CALCULATE</button>
+            <div class="result hidden">
+                <p class="results">Your BMI is: <span class="bmi">0</span></p>
+                <p class="results">You Are <span class="health">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const weight = document.querySelector('.weight');
+        const height = document.querySelector('.height');
+        const calculate = document.querySelector('.calculate')
+
+        const result = document.querySelector('.result')
+
+        function calc() {
+            if ((weight.value && height.value) && (!isNaN(weight.value) && !isNaN(height.value))) {
+                const bmi = document.querySelector('.bmi');
+                const healthCheck = document.querySelector('.health');
+
+                const calcBMI = weight.value / (height.value * height.value);
+                console.log(calcBMI)
+                
+                result.classList.remove('hidden')
+                bmi.textContent = (+calcBMI).toFixed(2);
+
+                if (calcBMI < 18.5) {
+                    healthCheck.textContent = 'underweight';
+                } else if (calcBMI >= 18.5 && calcBMI < 25) {
+                    healthCheck.textContent = 'normal weight';
+                } else if (calcBMI >= 25 && calcBMI < 30) {
+                    healthCheck.textContent = 'over weight';
+                } else if (calcBMI >= 30 && calcBMI < 35) {
+                    healthCheck.textContent = 'moderately obese';
+                } else if (calcBMI >= 35 && calcBMI < 40) {
+                    healthCheck.textContent = 'severely obese';
+                } else if (calcBMI >= 40) {
+                    healthCheck.textContent = 'morbidly obese';
+                }
+            } else {
+                alert('PLEASE PUT VALID INPUT');
+                result.classList.add('hidden')
+            }
+        }
+        
+        calculate.addEventListener('click', calc)
+    </script>
+</body>
+</html>

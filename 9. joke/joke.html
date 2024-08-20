@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {  
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .container {
+            background-color: brown;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 900px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 50px 0;
+        }
+
+        .joke-container {
+            padding: 10px 20px;
+        }
+
+        .title {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .joke {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .btn, .next {
+            margin-top: 30px;
+            padding: 10px 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .name {
+            color: white;
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+        .img {
+            width: 600px;
+            height: 400px;
+        }
+
+        .joke {
+            margin-top: 20px;
+        }
+
+        .next {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Meme Generator</h1>
+        <div class="joke-container">
+            <p class="name">"Loading..."</p>
+            <p class="joke"></p>
+            <div class="btns">
+                <button class="btn">CLICK FOR PUNCHLINE</button>
+            </div>
+            <button class="next">NEXT JOKE</button>
+        </div>
+    </div>
+
+    <script>
+        const btn = document.querySelector('.btn');
+        const name = document.querySelector('.name');
+        const joke = document.querySelector('.joke');
+        const next = document.querySelector('.next');
+
+        async function generator() {
+            try {
+                joke.innerHTML = '';
+                name.innerHTML = 'Loading...';
+
+                btn.disabled = true;
+                btn.innerHTML = 'Loading...';
+
+                next.disabled = true;
+                next.innerHTML = 'Loading...';
+
+                const response = await fetch('https://official-joke-api.appspot.com/jokes/ten')
+                const data = await response.json();
+                const random = Math.floor(Math.random() * data.length);
+                
+                name.innerHTML = data[random].setup;
+
+                btn.disabled = false;
+                btn.innerHTML = 'CLICK FOR PUNCHLINE';
+
+                next.disabled = false;
+                next.innerHTML = 'NEXT JOKE';
+
+                btn.addEventListener('click', function() {
+                    joke.innerHTML = `"${data[random].punchline}😂🤣😆"`;
+                })
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        generator();
+
+        next.addEventListener('click', generator);
+    </script>
+</body>
+</html>

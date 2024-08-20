@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .tip-container {
+            background-color: black;
+            color: white;
+            padding: 25px 50px;
+            border-radius: 10px;
+        }
+
+        .form-bill, .form-percentage {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-bill label, .form-percentage label {
+            font-size: 1.5rem;
+            margin-right: 20px;
+        }
+
+        .form-bill input, .form-percentage input {
+            width: 250px;
+            padding: 5px;
+        }
+        
+        .calculate {
+            padding: 10px 20px;
+            width: 100%;
+            margin: 10px 0;
+            font-size: 1rem;
+            background-color: green;
+            color: white;
+            border: none;
+            font-weight: bold;
+        }
+
+        .results {
+            font-size: 1.3rem;
+            margin: 10px 0;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        input {
+            font-size: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TIP CALCULATOR</h1>
+        <div class="tip-container">
+            <div class="form">
+                <div class="form-bill">
+                    <label for="bill">Bill Amount: </label>
+                    <input type="text" class="bill">
+                </div>
+                <div class="form-percentage">
+                    <label for="percentage">Tip Percentage(%): </label>
+                    <input type="text" class="percentage">
+                </div>
+            </div>
+            <button class="calculate">CALCULATE</button>
+            <div class="result hidden">
+                <p class="results">Tip Amount: <span class="amount">0</span></p>
+                <p class="results">Total: <span class="total">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const bill = document.querySelector('.bill');
+        const percentage = document.querySelector('.percentage');
+        const calculate = document.querySelector('.calculate');
+
+        const amount = document.querySelector('.amount');
+        const total = document.querySelector('.total');
+
+        const result = document.querySelector('.result');
+
+        function calculating() {
+            const numBill = +bill.value;
+            const numPercentage = +percentage.value;
+
+            const totalTip = numBill * (0 + '.' + 0 + numPercentage);
+            const totalAmount = numBill + totalTip;
+
+            amount.innerHTML = totalTip.toFixed(2);
+            total.innerHTML = totalAmount;
+        }
+
+        calculate.addEventListener('click', function() {
+            result.classList.remove('hidden');
+
+            calculating();
+        })
+    </script>
+</body>
+</html>
