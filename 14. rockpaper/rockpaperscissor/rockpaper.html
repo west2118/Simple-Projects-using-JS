@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="rockpaper.css">
+</head>
+<body>
+    <div class="container-starter">
+        <h1 class="title">ROCK PAPER SCISSORS</h1>
+         <div class="container-btn">
+            <button class="play-others btn">PLAY WITH OTHERS</button>
+            <button class="play-computer btn">PLAY WITH COMPUTER</button>
+        </div>       
+    </div>  
+
+    <div class="container-game hidden">
+            <h1 class="title">ROCK PAPER SCISSORS</h1>
+            <div class="scores">
+                <p class="player">Player: <span class="player-score"></span></p>
+                <p class="computer">Computer: <span class="computer-score"></span></p>
+            </div>
+            <div class="choices">
+                <button class="paper btn-choices"><img src="img-1.png" alt=""></button>
+                <button class="rock btn-choices"><img src="img-2.png" alt=""></button>
+                <button class="scissors btn-choices"><img src="img-3.png" alt=""></button>
+            </div>
+            <div class="container-text">
+                <p>Choose your weapon!</p>
+                <p>Time left: <span class="timer">3</span>s</p>
+            </div>     
+    </div>`;
+
+    <div class="container-game-picked hidden">
+        <div class="dashboard">
+                <h1 class="title">ROCK PAPER SCISSORS</h1>
+                <div class="scores">
+                    <p class="player">Player: <span class="player-score player-score2"></span></p>
+                    <p class="computer">Computer: <span class="computer-score computer-score2"></span></p>
+                </div>
+            </div>
+            <div class="result-container">
+                <div class="result">
+                    <h5>PlAYER PICKED</h3>
+                    <img src="" class="player-result">
+                </div>
+                <div>
+                    <h2 class="win">PLAYER WINS</h2>
+                </div>
+                <div class="result">
+                    <h5>COMPUTER PICKED</h3>
+                    <img src="" class="computer-result">
+                </div>
+            </div>
+            <div class="buttons-result">
+                <button class="play-again btn-result">Play Again</button>
+                <button class="reset-score btn-result">Reset Score</button>
+        </div>    
+    </div>
+    
+    <script src="rockpaper.js"></script>
+</body>
+</html>

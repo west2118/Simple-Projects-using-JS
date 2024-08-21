@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.container-btn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.btn {
+  margin: 8px;
+  padding: 15px 0;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: rgb(230, 230, 12);
+  color: black;
+  transition: background-color 0.3s ease, color 0.3 ease;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* !--- Player Picking --! */
+
+.scores {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player,
+.computer {
+  padding: 10px 20px;
+  border: 1px black solid;
+  margin: 15px 10px;
+}
+
+img {
+  height: 80px;
+  width: 80px;
+}
+
+.btn-choices {
+  padding: 25px;
+  margin: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: transparent;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-choices:hover {
+  background-color: rgb(230, 230, 12);
+}
+
+.container-text p {
+  font-size: 1.1rem;
+  margin: 10px;
+}
+
+.timer {
+  font-weight: bold;
+}
+
+/* Result View */
+
+.result-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 100px;
+  margin: 30px;
+}
+
+.result h5 {
+  margin-bottom: 10px;
+}
+
+.buttons-result {
+  margin-top: 50px;
+}
+
+.btn-result {
+  padding: 15px 50px;
+  font-weight: bold;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+  background-color: rgb(230, 230, 12);
+  color: black;
+  transition: background-color 0.3s ease, color 0.3 ease;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 5px;
+}
+
+.btn:hover,
+.btn-result:hover {
+  background-color: black;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: url(QuizText-BG.jpg);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .rounds {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100vw;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(7px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: white;
+            padding: 20px 100px;
+            margin-bottom: 50px;
+        }
+
+        .question-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 100px;
+        }
+
+        .quest {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(7px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: white;
+            align-items: center;
+            justify-content: center;
+            width: 600px;
+            height: 300px;
+            border-radius: 25px;
+        }
+
+        .category {
+            background-color: blue;
+            padding: 10px;
+            border-radius: 25px;
+        }
+
+        .questions {
+            padding: 20px;
+            font-size: 1.2rem;
+        }
+
+        .answers {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+            gap: 15px;
+        }
+
+        .answer {
+            width: 500px;
+            padding: 20px 50px;
+            border-radius: 25px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .answer:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(7px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty {
+            margin-top: 10px;
+        }
+
+        .game {
+            display: none;
+        }
+
+        .title {
+            color: white;
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .start {
+            position: relative;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px); 
+            border: none;
+            border-radius: 25px; 
+            padding: 12px 50px;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .start:hover {
+            background: rgba(255, 255, 255, 0.3); 
+            backdrop-filter: blur(12px); 
+        }
+
+        .start:active {
+            transform: translateY(2px); 
+            backdrop-filter: blur(8px); 
+        }  
+    </style>
+</head>
+<body>
+
+    <div class="starting">
+        <div class="starting-container">
+            <h1 class="title">TRIVIA GAME</h1>
+            <button class="start">Start Game</button>
+        </div>
+    </div>
+
+    
+    <div class="game">
+        <div class="game-container"> 
+
+            <div class="rounds">
+                <div class="round">
+                    <h1 class="current-round">Round <span class="curr-round">1</span> of 10</h1>
+                    <p class="difficulty">Loading...</p>
+                </div>
+                <div class="score">
+                    <h4>Points: <span class="points">0</span></h4>
+                </div>
+            </div>
+
+            <div class="question-container">
+                
+                <div class="quest">
+                    <div class="category">
+                        <h1 class="categories">Loading...</h1>
+                    </div>
+                    <div class="questions">
+                        <p class="question">Loading...</p>
+                    </div>
+                </div>
+
+                <div class="answers">
+                    <button class="answer1 answer">Loading...</button>
+                    <button class="answer2 answer">Loading...</button>
+                    <button class="answer3 answer">Loading...</button>
+                    <button class="answer4 answer">Loading...</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const start = document.querySelector('.start');
+        const gameContainer = document.querySelector('.game')
+        const startContainer = document.querySelector('.starting')
+
+        const button1 = document.querySelector('.answer1')
+        const button2 = document.querySelector('.answer2')
+        const button3 = document.querySelector('.answer3')
+        const button4 = document.querySelector('.answer4')
+        const buttons = document.querySelectorAll('.answer')
+        const question = document.querySelector('.question')
+        const category = document.querySelector('.categories')
+        const difficulty = document.querySelector('.difficulty')
+        const round = document.querySelector('.curr-round')
+        const points = document.querySelector('.points')
+        let currentQuestion = 0;
+        let score = 0
+        let data;
+
+        start.addEventListener('click', function() {
+            gameContainer.style.display = 'flex'
+            startContainer.style.display = 'none'
+        })
+
+        async function game() {
+            const response = await fetch('https://the-trivia-api.com/v2/questions')
+            data = await response.json();
+            
+            const allAnswers = [data[currentQuestion].correctAnswer, data[currentQuestion].incorrectAnswers]
+
+            shuffleArray(allAnswers);
+
+            const newAllAnswers = allAnswers.flat();
+
+            button1.innerHTML = newAllAnswers[0];
+            button2.innerHTML = newAllAnswers[1];
+            button3.innerHTML = newAllAnswers[2];
+            button4.innerHTML = newAllAnswers[3];
+            points.innerHTML = score;
+            question.innerHTML = data[currentQuestion].question.text
+            category.innerHTML = data[currentQuestion].category
+            difficulty.innerHTML = data[currentQuestion].difficulty
+            round.innerHTML = currentQuestion + 1;
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', gameProcess)
+            })
+        }
+        game()
+
+        function shuffleArray(array) {
+            for(let i = 0; i < array.length; i++) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]
+            } 
+        }
+
+        function gameProcess(e) {
+            if(e.target.innerHTML === data[currentQuestion].correctAnswer) {
+                score += 10;
+            } 
+            currentQuestion++;
+
+            if(currentQuestion < data.length) {
+                game();
+            } else {
+                alert(`Congratulations You Finished The Game! \nYour Points is: ${score} / ${data.length * 10}`);
+                alert(`The game will automatically start again`);
+                score = 0;
+                currentQuestion = 0;
+                game()
+            }
+        }
+    </script>
+</body>
+</html>
