@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: white;
+        }
+
+        section {
+            max-width: 1170px;
+            margin: 0 100px;
+        }
+
+        section h1 {
+            color: black;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgb(0, 0, 0);
+            padding: 50px 100px;
+            border-radius: 20px;
+        }
+
+        .question {
+            background-color: white;
+            color: black;
+            border-radius: 10px;
+        }
+
+        .question h3 {
+            color: black;
+            padding: 30px 50px;
+        }
+
+        .answers {
+            margin-top: 10px;
+        }
+        
+        button {
+            background-color: white;
+            padding: 10px 40px;
+            margin-top: 10px;
+            margin: 5px 2.5px;
+            width: 48.5%;
+            color: black;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>Quiz Game</h1>
+        <div class="container">
+            <div class="question">
+                <h3 class="questions"></h3>
+            </div>
+            <div class="answers">
+                <div class="answers1">
+                    <button class="choiceA btn"></button>
+                    <button class="choiceB btn"></button>
+                </div>
+                <div class="answers2">
+                    <button class="choiceC btn"></button>
+                    <button class="choiceD btn"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const questions = [
+        {
+            question: "1. In JavaScript, which method is used to remove the last element from an array?",
+            choices: [
+            "A. array.unshift()",
+            "B. array.shift()",
+            "C. array.push()",
+            "D. array.pop()"
+            ],
+            correctAnswer: "D. array.pop()"
+        },
+        {
+            question: "2. Which of the following methods can be used to convert a JavaScript array into a string?",
+            choices: [
+            "A. array.join()",
+            "B. array.split()",
+            "C. array.concat()",
+            "D. array.slice()"
+            ],
+            correctAnswer: "A. array.join()"
+        },
+        {
+            question: "3. What will the following code snippet output: `console.log([1, 2, 3].length);`?",
+            choices: [
+            "A. 2",
+            "B. 3",
+            "C. 4",
+            "D. undefined"
+            ],
+            correctAnswer: "B. 3"
+        },
+        {
+            question: "4. Which method is used to find the index of the first occurrence of a specified value in an array?",
+            choices: [
+            "A. array.indexOf()",
+            "B. array.find()",
+            "C. array.lastIndexOf()",
+            "D. array.includes()"
+            ],
+            correctAnswer: "A. array.indexOf()"
+        },
+        {
+            question: "5. If you want to combine two arrays into a single array, which method would you use?",
+            choices: [
+            "A. array.push()",
+            "B. array.concat()",
+            "C. array.splice()",
+            "D. array.reverse()"
+            ],
+            correctAnswer: "B. array.concat()"
+        }
+        ];
+
+        const questionEl = document.querySelector('.questions');
+        const answers = document.querySelectorAll('.btn');
+        const choiceA = document.querySelector('.choiceA');
+        const choiceB = document.querySelector('.choiceB');
+        const choiceC = document.querySelector('.choiceC');
+        const choiceD = document.querySelector('.choiceD');
+        let score = 0;
+        let numCurrentQuestion = 0;
+
+        const currentQuestion = num => {
+            const question = questions[num];
+            questionEl.innerHTML = question.question;
+            choiceA.innerHTML = question.choices[0];
+            choiceB.innerHTML = question.choices[1];
+            choiceC.innerHTML = question.choices[2];
+            choiceD.innerHTML = question.choices[3];
+
+            answers.forEach(btn => {
+                btn.addEventListener('click', handleAnswer);
+            })
+        }
+
+        const handleAnswer = e => {
+            if(e.target.innerHTML === questions[numCurrentQuestion].correctAnswer) {
+                score++;
+            }
+            numCurrentQuestion++;
+
+            if(numCurrentQuestion < questions.length) {
+                currentQuestion(numCurrentQuestion);
+            } else {
+                alert(`Your score is ${score}/${questions.length}`);
+                score = 0;
+                numCurrentQuestion = 0;
+                currentQuestion(numCurrentQuestion);
+            }
+        }
+
+        const init = () => {
+            currentQuestion(numCurrentQuestion);
+        }
+        init();
+    </script>
+</body>
+</html>
