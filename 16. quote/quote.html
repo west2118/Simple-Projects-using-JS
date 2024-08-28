@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://wallpaperaccess.com/full/5143599.jpg') center/cover no-repeat;
+        }
+
+        .container {
+            background-color: white;
+            width: 800px;
+            height: auto;
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        .container h1 {
+            margin-bottom: 20px;
+        }
+
+        .quote {
+            font-size: 1.5rem;
+        }
+
+        .quote::before, .quote::after {
+            content: '"';
+        }
+
+        .author {
+            display: block;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .random {
+            border: none;
+            padding: 15px 30px;
+            background-color: rgb(63, 63, 214);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quote Generator</h1>
+        <blockquote class="quote"></blockquote>
+        <span class="author"></span><br>
+        <button class="random">New Quote</button>
+    </div> 
+    
+    <script>
+        const quoteEl = document.querySelector('.quote');
+        const author = document.querySelector('.author');
+        const random = document.querySelector('.random');
+
+        const quotes = [
+            {
+                quote: "The only limit to our realization of tomorrow is our doubts of today.",
+                author: "- Franklin D. Roosevelt"
+            },
+            {
+                quote: "The future belongs to those who believe in the beauty of their dreams.",
+                author: "- Eleanor Roosevelt"
+            },
+            {
+                quote: "Do not wait to strike till the iron is hot; but make it hot by striking.",
+                author: "- William Butler Yeats"
+            },
+            {
+                quote: "Whether you think you can, or you think you can't – you're right.",
+                author: "- Henry Ford"
+            },
+            {
+                quote: "The best way to predict your future is to create it.",
+                author: "- Abraham Lincoln"
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            quoteEl.innerHTML = quotes[0].quote;
+            author.innerHTML = quotes[0].author;
+        })
+
+        random.addEventListener('click', function() {
+            const randomNum = Math.floor(Math.random() * quotes.length);
+            const randomPicker = quotes[randomNum];
+
+            quoteEl.innerHTML = randomPicker.quote;
+            author.innerHTML = randomPicker.author;
+        })
+        // const apiUrl = 'https://api.quotable.io/random';
+
+        // async function getUrl(url) {
+        //     let response = await fetch(url)
+        //     let data = await response.json();
+            
+        //     quote.innerHTML = data.content;
+        //     author.innerHTML = '- ' + data.author;
+        // }
+        
+        // random.addEventListener('click', function() {
+        //     getUrl(apiUrl);
+        // })
+    </script>
+</body>
+</html>
