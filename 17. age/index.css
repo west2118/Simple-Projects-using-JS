@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.container button {
+  width: 500px;
+  padding: 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.birthday {
+  width: 500px;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+}
+.birthday label {
+  font-size: 1.1rem;
+}
+.birthday input {
+  width: 50%;
+  padding: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.result {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.result .results {
+  background-color: black;
+  color: white;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.result .results h1 {
+  font-size: 2.5rem;
+}/*# sourceMappingURL=index.css.map */
