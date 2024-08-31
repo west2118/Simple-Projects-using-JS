@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    
+    <main class="h-screen flex justify-center items-center flex-col w-auto bg-purple-300">
+        <h1 class="text-4xl font-bold mb-5">INTEREST CALCULATOR</h1>
+        <div class="p-6 h-auto rounded-lg w-auto bg-white">
+            <div class="flex gap-4 mb-4">
+                <div class="mr-5">
+                    <label class="font-semibold text-lg mb-1" for="principal">Pricipal($)</label><br>
+                    <input class="border-b border-black bg-transparent text-base pl-1 mt-2" type="text" name="principal" id="principal-value">
+                </div>
+
+                <div>
+                    <label class="font-semibold text-lg mb-1" for="principal">Interest(%)</label><br>
+                    <input class="border-b border-black bg-transparent text-base pl-1 mt-2" type="text" name="principal" id="interest-value">
+                </div>
+            </div>
+            <div class="flex gap-4 mb-4 items-center">
+                <div class="mr-5">
+                    <label class="font-semibold text-lg mb-1" for="principal">Times(count)</label><br>
+                    <input class="border-b border-black bg-transparent text-base pl-1 mt-2" type="text" name="principal" id="time-value">
+                </div>
+
+                <div>
+                    <select class="py-1 px-5 bg-black text-white" name="date" id="time">
+                        <option value="years">Years</option>
+                        <option value="months">Months</option>
+                        <option value="days">Days</option>
+                    </select>
+                </div>
+            </div>
+            <button class="w-full bg-blue-600 p-2 mt-2 text-white font-semibold" id="calculate">Calculate</button>
+            <div class="flex flex-col gap-1 mt-7 bg-green-100 py-5 px-3">
+                <h1 class="text-xl font-semibold">Result:</h1>
+                <p class="text-lg">Principal Amount: $<span class="principal">0</span></p>
+                <p class="text-lg">Total Interest: $<span class="interest">0</span></p>
+                <p class="text-lg">Total Amount: $<span class="amount">0</span></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // BEFORE REFACTORING
+        // const principal = document.querySelector('.principal')
+        // const interest = document.querySelector('.interest')
+        // const amount = document.querySelector('.amount')
+
+        // const principalValue = document.querySelector('#principal-value')
+        // const interestValue = document.querySelector('#interest-value')
+        //  const timesValue = document.querySelector('#time-value')
+
+        // const calculate = document.querySelector('#calculate')
+
+        // let computeInterest;
+
+        // function calcResult() {
+        //     const time = document.querySelector('#time').value
+
+        //     if (time === 'years') {
+        //         computeInterest = (+principalValue.value * +interestValue.value * +timesValue.value) / 100;
+        //     } else if (time === 'months') {
+        //         computeInterest = (+principalValue.value * (+interestValue.value / 12) * +timesValue.value) / 100;
+        //     } else if (time === 'days') {
+        //         computeInterest = (+principalValue.value * (+interestValue.value / 365) * +timesValue.value) / 100;
+        //     }
+
+        //     principal.innerHTML = principalValue.value;
+        //     interest.innerHTML = +computeInterest.toFixed(2);
+        //     amount.innerHTML = (+principalValue.value + +computeInterest).toFixed(2);
+        // }
+
+        // calculate.addEventListener('click', calcResult)
+
+        const principalElement = document.querySelector('.principal')
+        const interestElement = document.querySelector('.interest')
+        const amountElement = document.querySelector('.amount')
+
+        const principalValueInput = document.querySelector('#principal-value')
+        const interestValueInput = document.querySelector('#interest-value')
+        const timesValueInput = document.querySelector('#time-value')
+
+        const calculateBtn = document.querySelector('#calculate')
+
+        const months = 12;
+        const days = 365
+
+        function calculateInterest(principal, rate, time, periodType) {
+            if(periodType === 'years') {
+                return (principal * rate * time) / 100;
+            } else if (periodType === 'months') {
+                return (principal * (rate / months) * time) / 100;
+            } else if (periodType === 'days') {
+                return (principal * (rate / days) * time) / 100;
+            }
+            return 0;
+        }
+
+        function handeCalculation() {
+            const principal = parseFloat(principalValueInput.value)
+            const rate = parseFloat(interestValueInput.value);
+            const time = parseFloat(timesValueInput.value);
+            const periodType = document.querySelector('#time').value
+
+            if (isNaN(principal) || isNaN(rate) || isNaN(time) || principal < 0 || rate < 0 || time < 0) {
+                alert('please input a value number');
+                return;
+            }
+
+            const interest = calculateInterest(principal, rate, time, periodType);
+
+            principalElement.innerHTML = principal.toFixed(2);
+            interestElement.innerHTML = interest.toFixed(2);
+            amountElement.innerHTML = (principal + interest).toFixed(2)
+        }
+
+        calculateBtn.addEventListener('click', handeCalculation)
+    </script>
+
+</body>
+</html>
