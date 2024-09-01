@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <main class="h-screen flex justify-center items-center flex-col">
+        <div class="w-96 bg-black text-white text-center p-5 rounded">
+            <h1 class="text-2xl font-bold">OTP Generator</h1>
+            <div class="bg-white flex justify-center items-center w-full text-black my-3 rounded h-10">
+                <p class="text-lg font-semibold" id="otp"></p>
+            </div>
+            <p class="hidden timerElement">Time left: <span id="time"></span> seconds</p>
+            <button class="bg-blue-600 w-40 mt-3 p-2 text-base font-semibold rounded" id="generate">Generate</button>
+        </div>
+    </main>
+
+    <script>
+        // const otp = document.querySelector('#otp');
+        // const time = document.querySelector('#time');
+        // const generate = document.querySelector('#generate');
+        // const timerElement = document.querySelector('.timerElement')
+
+        // let seconds = 60;
+        // let timer;
+
+        // time.innerHTML = seconds;
+
+        // function generatorOTP() {
+        //     let otpResult = '';
+
+        //     for(let i = 0; i < 7; i++) {
+        //         const randomNum = Math.floor(Math.random() * 9) + 1;
+        //         otpResult += `${randomNum} `;
+        //     }
+
+        //     otp.innerHTML = otpResult;
+        // }
+
+        // function timeLeft() {
+        //     seconds--;
+
+        //     time.innerHTML = seconds;
+
+        //     if(seconds <= 0) {
+        //         otp.innerHTML = '';
+        //         clearInterval(timer);
+
+        //         seconds = 60;
+
+        //         time.innerHTML = seconds;
+
+        //         timerElement.classList.add('hidden')
+
+        //         generate.disabled = false;
+        //     }
+        // }
+
+        // function timerLeft() {
+        //     generatorOTP();
+
+        //     generate.disabled = true;
+
+        //     timerElement.classList.remove('hidden');
+
+        //     timer = setInterval(timeLeft, 1000);
+        // }
+
+        // generate.addEventListener('click', timerLeft);
+
+        const otp = document.querySelector('#otp');
+        const time = document.querySelector('#time');
+        const generate = document.querySelector('#generate');
+        const timerElement = document.querySelector('.timerElement')
+
+        let seconds = 60;
+        let timer;
+
+        time.innerHTML = seconds;
+
+        function generateOTP() {
+            let otpResult = '';
+
+            for(let i = 0; i < 7; i++) {
+                const randomNum = Math.floor(Math.random() * 9) + 1;
+                otpResult += `${randomNum} `;
+            }
+
+            otp.innerHTML = otpResult.trim();
+        }
+
+        function updateTimer() {
+            seconds--;
+
+            time.innerHTML = seconds;
+
+            if(seconds <= 0) {
+                resetTimer();
+            }
+        }
+
+        function resetTimer() {
+            otp.innerHTML = '';
+            clearInterval(timer);
+
+            seconds = 60;
+            time.innerHTML = seconds;
+
+            timerElement.classList.add('hidden')
+            generate.disabled = false;
+        }
+
+        function startTimer() {
+            generateOTP();
+
+            generate.disabled = true;
+            timerElement.classList.remove('hidden');
+
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        generate.addEventListener('click', startTimer);
+    </script>
+</body>
+</html>
