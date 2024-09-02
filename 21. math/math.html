@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <main class="w-full h-screen flex items-center justify-center text-center bg-blue-400 flex-col">
+        <h1 class="text-4xl font-bold mb-5">MATH GAME</h1>
+        <div class="w-96 bg-white p-8 rounded">
+            <p class="text-lg">Fill the blank with correct number</p>
+            <p id="score-board" class="hidden">Score: <span class="font-semibold" id="totalScore">0</span> / 10</p>
+            <div class="bg-gray-100 p-2 rounded m-2">
+                <p><span id="randomOne">7</span> + <span><input id="answer-value" type="text" placeholder="?" class="border-b border-black w-12 bg-transparent text-center" required></span> = <span id="total-answer">85</span></p>
+            </div>
+            <button class="w-32 bg-green-600 text-white p-1 mt-2 rounded" id="submit">Submit</button>
+        </div>
+    </main>
+
+    <script>
+        const randomNum = document.querySelector('#randomOne');
+        const answerValue = document.querySelector('#answer-value');
+        const totalAnswer = document.querySelector('#total-answer');
+        const submitBtn = document.querySelector('#submit');
+        const totalScore = document.querySelector('#totalScore');
+        const scoreBoard = document.querySelector('#score-board')
+
+        let score = 0;
+        let currentRandom = 0;
+        let currentOneQuestion = 0;
+        let answer = 0;
+        let currentRound = 1;
+
+
+        function currentQuestion() {
+            currentRandom = getRandom(101, 500);
+            currentOneQuestion = getRandomNum();
+
+            randomNum.innerHTML = currentOneQuestion;
+            totalAnswer.innerHTML = currentRandom;
+            answerValue.value = '';
+            totalScore.innerHTML = score;
+            scoreBoard.classList.add('hidden');
+        }
+
+        function game() {
+            answer = (+answerValue.value + currentOneQuestion);
+
+            if (answer === currentRandom) {
+                score++;
+            }
+            currentRound++;
+
+            answerValue.value = '';
+            totalScore.innerHTML = score
+
+
+            if (currentRound < 10) {
+                currentQuestion();
+            } else {
+                endGame()
+            }
+        }
+
+        function endGame() {
+            scoreBoard.classList.remove('hidden');
+            score = 0;
+            currentRound = 1;
+        }
+
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function getRandomNum() {
+            return Math.floor(Math.random() * 100) + 1;
+        }
+
+        currentQuestion();
+
+        submitBtn.addEventListener('click', game);
+    </script>
+</body>
+</html>
